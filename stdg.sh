@@ -45,6 +45,7 @@ do
 	eval OutputDir=\${$name[OutputDir]}
 	eval Resources=\${$name[Resources]}
 	eval GRES=\${$name[GRES]}
+	eval Clean=\${$name[Clean]}
 
 	echo "" | tee -a $LOGFILE
 	echo "Account Parameters for" $AccountName | tee -a $LOGFILE
@@ -59,6 +60,12 @@ do
 	echo "OutputDir:" $OutputDir | tee -a $LOGFILE
 	echo "Resources:" $Resources | tee -a $LOGFILE
 	echo "GRES:" $GRES | tee -a $LOGFILE
+	echo "Clean:" $Clean | tee -a $LOGFILE
+
+	# Clean up account if needed
+	if [ $Clean == "T" ]; then
+		sacctmgr -i delete account name=$AccountName
+	fi
 
 	# Create Account and Associate user in Slurmdb
 	sacctmgr -i create account name=$AccountName 
