@@ -61,7 +61,8 @@ do
 	echo "GRES:" $GRES | tee -a $LOGFILE
 
 	# Create Account and Associate user in Slurmdb
-	sacctmgr -i create account name=$AccountName fairshare=$Fairshare
+	sacctmgr -i create account name=$AccountName 
+	sacctmgr -i modify account name=$AccountName set fairshare=$Fairshare
 	sacctmgr -i add user name=$USER account=$AccountName fairshare=parent
 
 	# Submit Job Submitting Job to cluster
