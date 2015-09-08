@@ -73,6 +73,7 @@ do
 	sacctmgr -i add user name=$USER account=$AccountName fairshare=parent
 
 	# Submit Job Submitting Job to cluster
+	sbatch -t ${info[Duration]} -p $Partition -J "$AccountName"-master -o "$AccountName"-master-%A.log joblauncher.slurm
 
 	let index=index+1
 done
