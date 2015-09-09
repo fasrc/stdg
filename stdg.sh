@@ -33,7 +33,7 @@ do
 	# going to simplify our lives by reading out the array into new variables
 	# that should be easier to deal with.
 	name=acct$index
-	export AccountName=\${$name[AccountName]}
+	eval AccountName=\${$name[AccountName]}
 	eval Fairshare=\${$name[Fairshare]}
 	eval NumJobs=\${$name[NumJobs]}
 	eval SubmitFreq=\${$name[SubmitFreq]}
@@ -46,6 +46,21 @@ do
 	eval Resources=\${$name[Resources]}
 	eval GRES=\${$name[GRES]}
 	eval Clean=\${$name[Clean]}
+
+	# Exporting these as environmental variables so that we can use them in slurm.
+	export AccountName
+	export Fairshare
+	export NumJobs
+	export SubmitFreq
+	export NumCPU
+	export Mem
+	export Time
+	export UseArray
+	export Partition
+	export OutputDir
+	export Resources
+	export GRES
+	export Clean
 
 	echo "" | tee -a $LOGFILE
 	echo "Account Parameters for" $AccountName | tee -a $LOGFILE
