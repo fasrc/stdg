@@ -1,6 +1,9 @@
 #!/bin/bash
 #This is the master job launcher for STDG.  It will take the data fed to it by stdg.sh and then run in a loop to generate the jobs that STDG specifies.
 
+# Need to make our output directory if it doesn't exist.
+mkdir $OutputDir
+
 # Let's put ourselves into an infinite loop as we will rely on scancel or the time limit to kill this.
 while :
 do
