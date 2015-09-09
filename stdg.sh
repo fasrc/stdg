@@ -33,7 +33,7 @@ do
 	# going to simplify our lives by reading out the array into new variables
 	# that should be easier to deal with.
 	name=acct$index
-	eval AccountName=\${$name[AccountName]}
+	export AccountName=\${$name[AccountName]}
 	eval Fairshare=\${$name[Fairshare]}
 	eval NumJobs=\${$name[NumJobs]}
 	eval SubmitFreq=\${$name[SubmitFreq]}
