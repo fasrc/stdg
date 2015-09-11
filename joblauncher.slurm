@@ -10,12 +10,7 @@ do
 	# Need to discriminate between using job arrays or not.
 	if [ $UseArray == "T" ]; then
 		echo "Using Array"
-        # Slurm doesn't like empty constraint lists.
-        if [ -z "$Resources" ]; then
-            sbatch -t $Time -p $Partition -A $AccountName -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A-%a.log -n $NumCPU --mem $Mem -a 1-$NumJobs --gres=\"$GRES\" sleep.slurm
-        else
-            sbatch -t $Time -p $Partition -A $AccountName -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A-%a.log -n $NumCPU --mem $Mem -a 1-$NumJobs --gres=\"$GRES\" --constraint=\"$Resources\" sleep.slurm
-        fi
+        sbatch -t $Time -p $Partition -A $AccountName -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A-%a.log -n $NumCPU --mem $Mem -a 1-$NumJobs --gres=$GRES --constraint=$Resources sleep.slurm
 	else
 		echo "Normal"
 	fi
