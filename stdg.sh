@@ -82,16 +82,16 @@ do
 
 	# Clean up account if needed
 	if [ $Clean == "T" ]; then
-		sacctmgr -i delete account name=$AccountName
+		sacctmgr -i delete account name="$AccountName"
 	fi
 
 	# Create Account and Associate user in Slurmdb
-	sacctmgr -i create account name=$AccountName 
-	sacctmgr -i modify account name=$AccountName set fairshare=$Fairshare
-	sacctmgr -i add user name=$USER account=$AccountName fairshare=parent
+	sacctmgr -i create account name="$AccountName" 
+	sacctmgr -i modify account name="$AccountName" set fairshare=$Fairshare
+	sacctmgr -i add user name=$USER account="$AccountName" fairshare=parent
 
 	# Submit Job Submitting Job to cluster
-	sbatch -t ${info[Duration]} -p $Partition -A $AccountName -J "$AccountName"-master -o "$AccountName"-master-%A.log joblauncher.slurm
+	sbatch -t ${info[Duration]} -p "$Partition" -A "$AccountName" -J "$AccountName"-master -o "$AccountName"-master-%A.log joblauncher.slurm
 
 	let index=index+1
 done
