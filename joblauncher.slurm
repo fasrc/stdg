@@ -13,6 +13,10 @@ do
         sbatch -t "$Time" -p "$Partition" -A "$AccountName" -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A-%a.log -n "$NumCPU" --mem "$Mem" -a 1-"$NumJobs" --gres="$GRES" --constraint="$Resources" "$JobScript"
 	else
 		echo "Normal"
+        for i in {1..$NumJobs}
+        do
+            sbatch -t "$Time" -p "$Partition" -A "$AccountName" -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A.log -n "$NumCPU" --mem "$Mem" --gres="$GRES" --constraint="$Resources" "$JobScript"
+        done
 	fi
 
 	# Sleep for specified amount of time then start all over again.
