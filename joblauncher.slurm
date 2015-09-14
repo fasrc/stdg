@@ -10,7 +10,7 @@ do
 	# Need to discriminate between using job arrays or not.
 	if [ $UseArray == "T" ]; then
 		echo "Using Array"
-        sbatch -t $Time -p $Partition -A $AccountName -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A-%a.log -n $NumCPU --mem $Mem -a 1-$NumJobs --gres=$GRES --constraint=$Resources sleep.slurm
+        sbatch -t $Time -p $Partition -A $AccountName -J "$AccountName"-job -o "$OutputDir"/"$AccountName"-%A-%a.log -n $NumCPU --mem $Mem -a 1-$NumJobs --gres=$GRES --constraint=$Resources $JobScript
 	else
 		echo "Normal"
 	fi

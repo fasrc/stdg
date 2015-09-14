@@ -46,6 +46,7 @@ do
 	eval Resources=\${$name[Resources]}
 	eval GRES=\${$name[GRES]}
 	eval Clean=\${$name[Clean]}
+	eval JobScript=\${$name[JobScript]}
 
 	# Exporting these as environmental variables so that we can use them in slurm.
 	export AccountName
@@ -61,6 +62,7 @@ do
 	export Resources
 	export GRES
 	export Clean
+    export JobScript
 
 	echo "" | tee -a $LOGFILE
 	echo "Account Parameters for" $AccountName | tee -a $LOGFILE
