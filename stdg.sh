@@ -78,6 +78,7 @@ do
 	echo "Resources:" $Resources | tee -a $LOGFILE
 	echo "GRES:" $GRES | tee -a $LOGFILE
 	echo "Clean:" $Clean | tee -a $LOGFILE
+    echo "JobScript:" $JobScript | tee -a $LOGFILE
 
 	# Clean up account if needed
 	if [ $Clean == "T" ]; then
