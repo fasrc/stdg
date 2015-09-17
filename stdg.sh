@@ -47,6 +47,7 @@ do
 	eval GRES=\${$name[GRES]}
 	eval Clean=\${$name[Clean]}
 	eval JobScript=\${$name[JobScript]}
+    eval QOS=\${$name[QOS]}
 
 	# Exporting these as environmental variables so that we can use them in slurm.
 	export AccountName
@@ -63,6 +64,7 @@ do
 	export GRES
 	export Clean
     export JobScript
+    export QOS
 
 	echo "" | tee -a $LOGFILE
 	echo "Account Parameters for" $AccountName | tee -a $LOGFILE
@@ -79,6 +81,7 @@ do
 	echo "GRES:" $GRES | tee -a $LOGFILE
 	echo "Clean:" $Clean | tee -a $LOGFILE
     echo "JobScript:" $JobScript | tee -a $LOGFILE
+    echo "QOS:" $QOS | tee -a $LOGFILE
 
 	# Clean up account if needed
 	if [ $Clean == "T" ]; then
@@ -91,7 +94,7 @@ do
 	sacctmgr -i add user name=$USER account="$AccountName" fairshare=parent
 
 	# Submit Job Submitting Job to cluster
-	sbatch -t ${info[Duration]} -p "$Partition" -A "$AccountName" -J "$AccountName"-master -o "$AccountName"-master-%A.log joblauncher.slurm
+	sbatch -t ${info[Duration]} -p "$Partition" -A "$AccountName" -J "$AccountName"-master --qos="$QOS" -o "$AccountName"-master-%A.log joblauncher.slurm
 
 	let index=index+1
 done
