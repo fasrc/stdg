@@ -3,7 +3,7 @@
 
 while :
 do
-	/usr/bin/squeue
-	/usr/bin/sacct -u pedmon
-	sleep 10s
+	/usr/bin/squeue > /dev/null
+	/usr/bin/sacct -u pedmon > /dev/null
+	sleep 1m
 done
