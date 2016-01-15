@@ -9,6 +9,7 @@ NumAcct=2
 #Account1
 [acct1]
 AccountName=lab01
+UserName=user01
 Clean=T
 Fairshare=100
 NumJobs=100
@@ -27,6 +28,7 @@ QOS=
 #Account2
 [acct2]
 AccountName=lab02
+UserName=user02
 Clean=F
 Fairshare=100
 NumJobs=100

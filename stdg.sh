@@ -34,6 +34,7 @@ do
 	# that should be easier to deal with.
 	name=acct$index
 	eval AccountName=\${$name[AccountName]}
+	eval UserName=\${$name[UserName]}
 	eval Fairshare=\${$name[Fairshare]}
 	eval NumJobs=\${$name[NumJobs]}
 	eval SubmitFreq=\${$name[SubmitFreq]}
@@ -51,6 +52,7 @@ do
 
 	# Exporting these as environmental variables so that we can use them in slurm.
 	export AccountName
+	export UserName
 	export Fairshare
 	export NumJobs
 	export SubmitFreq
@@ -68,6 +70,7 @@ do
 
 	echo "" | tee -a $LOGFILE
 	echo "Account Parameters for" $AccountName | tee -a $LOGFILE
+	echo "UserName:" $UserName | tee -a $LOGFILE
 	echo "Fairshare:" $Fairshare | tee -a $LOGFILE
 	echo "NumJobs:" $NumJobs | tee -a $LOGFILE
 	echo "SubmitFreq:" $SubmitFreq | tee -a $LOGFILE
@@ -90,11 +93,11 @@ do
 
 	# Create Account and Associate user in Slurmdb
 	sacctmgr -i create account name="$AccountName" 
-	sacctmgr -i modify account name="$AccountName" set fairshare=$Fairshare
-	sacctmgr -i add user name=$USER account="$AccountName" fairshare=parent
+	sacctmgr -i modify account name="$AccountName" set fairshare=$Fairshare MaxSubmit=7600
+	sacctmgr -i add user name=$UserName account="$AccountName" fairshare=parent
 
 	# Submit Job Submitting Job to cluster
-	sbatch -t ${info[Duration]} -p "$Partition" -A "$AccountName" -J "$AccountName"-master --qos="$QOS" -o "$AccountName"-master-%A.log joblauncher.slurm
+	sbatch -t ${info[Duration]} -p "$Partition" -A "$AccountName" --uid="$UserName" -J "$AccountName"-master --qos="$QOS" -o "$AccountName"-master-%A.log joblauncher.slurm
 
 	let index=index+1
 done
